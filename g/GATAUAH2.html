@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Surat Cinta</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #ffe6eb;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .envelope {
+      position: relative;
+      width: 340px;
+      height: 240px;
+      background: #ff99b6;
+      border-radius: 6px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 170px solid transparent;
+      border-right: 170px solid transparent;
+      border-bottom: 120px solid #ffccd9;
+    }
+
+    .envelope:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 170px solid transparent;
+      border-right: 170px solid transparent;
+      border-top: 120px solid #ffb6c9;
+    }
+
+    .heart-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ff4d6d;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      z-index: 5;
+    }
+
+    .heart-button:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .card {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      transition: top 4s ease, opacity 3s ease;
+      font-size: 15px;
+      line-height: 1.6;
+      z-index: 1;
+    }
+
+    /* Naiknya jangan terlalu tinggi */
+    .envelope.open .card {
+      top: -100px;
+      opacity: 1;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      color: #ff4d6d;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="envelope" id="envelope">
+    <div class="heart-button" id="openBtn">❤</div>
+    <div class="card">
+      <p>hai azhaaa, maaf ya kalau annoying, but really, i just wanna say... i have crush on you, gk berharap lebih kok, dan aku emang mau deket sama kamu. maaf ya kalau semuanya tiba tiba. plss jangan ilfeel 😞</p>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="ilikeyou.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const btn = document.getElementById('openBtn');
+    const music = document.getElementById('bg-music');
+
+    btn.addEventListener('click', () => {
+      envelope.classList.add('open');
+      music.play();
+      for (let i = 0; i < 40; i++) {
+        let conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * window.innerWidth + 'px';
+        conf.style.animationDuration = 5 + Math.random() * 5 + 's'; // jatuh lebih pelan
+        conf.innerHTML = '❤';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 10000);
+      }
+    });
+  </script>
+</body>
+</html>
